@@ -6,13 +6,13 @@ import (
 )
 
 func main(){
-	var todos []string = []string{"Todo 1"}
-
-	var command string;
-	fmt.Println("Enter command")
-	fmt.Scanln(&command)
+	var todos []string = []string{}
 
 	for {
+		var command string
+		fmt.Println("Enter command")
+		fmt.Scanln(&command)
+
 		if command == "add" {
 			var todoName string
 			fmt.Println("Enter todo!")
@@ -43,12 +43,24 @@ func main(){
 			index := slices.Index(todos, todoName)
 
 			if index == -1 {
-				fmt.Println("Element not found")
+				fmt.Println("Todo not found")
 			} else {
 				fmt.Println("Todo was found")
-				slices.Delete(todoName, todoName)
+				slices.Delete(todos, index, index+1)
+				fmt.Println("Todo was deleted!")
 			}
-			
+		} else if command == "list" {
+			if len(todos) == 0 {
+				fmt.Println("Empty todo list!")
+			}
+			for _, value  := range todos {
+				fmt.Println(value)
+			}
+		} else if command == "quit" {
+			fmt.Println("Quitting program")
+			break;
+		} else {
+			fmt.Println("Unknown command")
 		}
 	}
 
